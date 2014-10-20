@@ -1,5 +1,8 @@
 Changelog:
 
+0.7.2
+- Removed logic to try to login with cookies when restarting the addon
+
 0.7.1
 - Fixed away feeds
 - Fixed thumbnail related errors
