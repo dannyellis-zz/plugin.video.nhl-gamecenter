@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.nhl-gamecenter" name="NHL Gamecenter" version="0.7.2" provider-name="Carb0">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
+<addon id="plugin.video.nhl-gamecenter" name="NHL Gamecenter" version="0.7.2" provider-name="EllisD">
+	<requires>
+		<import addon="xbmc.python"					version="2.1.0"	/>
+	</requires>
+	<extension point="xbmc.python.pluginsource"	library="default.py">
+	  <provides>video</provides>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
     <summary>NHL GameCenter LIVE™ is an online service offering streaming video of live games.</summary>
-    <description>NHL GameCenter LIVE™ is an online service offering streaming video of live games.</description>
-  </extension>
+		<forum>http://forum.xbmc.org/showthread.php?tid=118853</forum>
+		<source>https://github.com/dannyellis/xbmc-nhl-gamecenter</source>
+		<license>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</license>
+	</extension>
 </addon>
