@@ -66,7 +66,7 @@ def getLiveGames(live):
         awayTeam = game.getElementsByTagName('awayTeam')[0].childNodes[0].nodeValue
         homeTeam = game.getElementsByTagName('homeTeam')[0].childNodes[0].nodeValue
         date = game.getElementsByTagName('date')[0].childNodes[0].nodeValue
-        startTime = time.strptime(date,"%Y-%m-%d %H:%M:%S.0")
+        startTime = time.strptime(date,"%Y-%m-%dT%H:%M:%S.000")
         
         #Game title
         title = ''

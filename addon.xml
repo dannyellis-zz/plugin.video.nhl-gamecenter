@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.nhl-gamecenter" name="NHL Gamecenter" version="0.7.2" provider-name="EllisD">
+<addon id="plugin.video.nhl-gamecenter" name="NHL Gamecenter" version="0.7.3" provider-name="EllisD">
 	<requires>
-		<import addon="xbmc.python"					version="2.1.0"	/>
+		<import addon="xbmc.python"	version="2.1.0"	/>
 	</requires>
 	<extension point="xbmc.python.pluginsource"	library="default.py">
 	  <provides>video</provides>
