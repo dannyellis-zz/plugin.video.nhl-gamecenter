@@ -1,5 +1,11 @@
+import sys
+import urllib
+import urllib2
+
+import xbmc
 import xbmcplugin
 import xbmcgui
+import xbmcaddon
 
 from resources.lib.games_live import *
 from resources.lib.games_archive import *

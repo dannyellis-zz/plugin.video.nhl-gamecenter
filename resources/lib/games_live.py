@@ -1,11 +1,15 @@
+import urllib2
+import re
+
 from xml.dom.minidom import parseString
 from datetime import datetime
+from dateutil import tz
 import time
 import pickle
+import os
 
-from dateutil import tz
+from resources.lib.globals import *
 from resources.lib.common import *
-
 
 def getLiveGames(live):
 
