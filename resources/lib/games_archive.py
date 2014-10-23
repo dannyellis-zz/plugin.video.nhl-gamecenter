@@ -1,15 +1,10 @@
-import urllib2
-import re
-
 from xml.dom.minidom import parseString
 from datetime import datetime
-from dateutil import tz
 import time
 import pickle
-import os
 
-from resources.lib.globals import *
 from resources.lib.common import *
+
 
 def getSeasons():
     #Dowload the xml file

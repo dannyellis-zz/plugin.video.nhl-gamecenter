@@ -1,4 +1,5 @@
-import os,urllib,urllib2
+import os
+import urllib
 
 #Check if Python Image Library is available
 try:
