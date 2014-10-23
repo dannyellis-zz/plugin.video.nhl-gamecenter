@@ -1,6 +1,7 @@
 import urllib
 import re
 import os
+import sys
 
 import xbmc
 import xbmcaddon
