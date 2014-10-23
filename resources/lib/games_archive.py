@@ -1,10 +1,15 @@
+import urllib2
+import re
+
 from xml.dom.minidom import parseString
 from datetime import datetime
+from dateutil import tz
 import time
 import pickle
+import os
 
+from resources.lib.globals import *
 from resources.lib.common import *
-
 
 def getSeasons():
     #Dowload the xml file
@@ -88,8 +93,8 @@ def getGames(url):
             homeGoals = ''
         
         #Change color of goals
-        #awayGoals = '[COLOR=FF00B7EB]'+ awayGoals + '[/COLOR]'
-        #homeGoals = '[COLOR=FF00B7EB]'+ homeGoals + '[/COLOR]'
+        awayGoals = '[COLOR=FF00B7EB]'+ awayGoals + '[/COLOR]'
+        homeGoals = '[COLOR=FF00B7EB]'+ homeGoals + '[/COLOR]'
         
         #Versus string
         versus = 31400
@@ -105,9 +110,15 @@ def getGames(url):
         
         #Game title
         if awayTeam in teams and homeTeam in teams:
-            name = date + ': ' + teams[awayTeam][TEAMNAME] + " " + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME]
+            if SHOWSCORE == 'true':
+                name = date + ' : '+teams[awayTeam][TEAMNAME] + " " + awayGoals  + " " + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME] + " " + homeGoals 
+            else:
+                name = date + ' : '+teams[awayTeam][TEAMNAME] + " " + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME]
         else:
-            name = date + ': ' + awayTeam + " " + LOCAL_STRING(versus) + " " + homeTeam
+            if SHOWSCORE == 'true':
+                name = date + ' : '+awayTeam + " " + LOCAL_STRING(versus) + " " + homeTeam
+            else:
+                name = date + ' : '+awayTeam + " " + awayGoals + " " + LOCAL_STRING(versus) + " " + homeTeam + " " + homeGoals
         
         if typeOfVideo != "lastnight": #Show all games
             gameList.append([name, gid, homeTeam, awayTeam, streamURL])

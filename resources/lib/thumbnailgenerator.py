@@ -1,5 +1,4 @@
-import os
-import urllib
+import os,urllib,urllib2
 
 #Check if Python Image Library is available
 try:
@@ -58,15 +57,18 @@ def deleteThumbnails(ROOTDIR):
                "images/169_transparent",
                "images/169_ice",
                "images/logos"]
-    
+
     for folder in folders:        
-        for the_file in os.listdir(os.path.join(ROOTDIR, folder)):
-            file_path = os.path.join(os.path.join(ROOTDIR, folder), the_file)
-            try:
-                if os.path.isfile(file_path):
-                    os.unlink(file_path)
-            except Exception, e:
-                print e
+        try:
+            for the_file in os.listdir(os.path.join(ROOTDIR, folder)):
+                file_path = os.path.join(os.path.join(ROOTDIR, folder), the_file)
+                try:
+                    if os.path.isfile(file_path):
+                        os.unlink(file_path)
+                except Exception, e:
+                    print e
+        except:
+            pass
  
     print "Old thumbnails deleted"
 

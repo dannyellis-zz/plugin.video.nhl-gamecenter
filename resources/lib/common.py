@@ -1,7 +1,13 @@
-import cookielib
+import urllib
 import urllib2
+import cookielib
+import os
 
+import xbmc
+import xbmcplugin
 import xbmcgui
+import xbmcaddon
+
 from resources.lib.globals import *
 from resources.lib.thumbnailgenerator import *
 
@@ -23,7 +29,7 @@ def login():
 def downloadFile(url,values):
     
     downloadedFile = ''
-
+    
     for i in range(1, 3):
         print "Download: " + str(i) + ". try"
         
