@@ -1,11 +1,5 @@
-import sys
-import urllib
-import urllib2
-
-import xbmc
 import xbmcplugin
 import xbmcgui
-import xbmcaddon
 
 from resources.lib.games_live import *
 from resources.lib.games_archive import *
@@ -31,21 +25,15 @@ def get_params():
 
 
 def addLink(name,url,title,iconimage):
-    if iconimage == '':
-        iconimage = ICON
     liz=xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
     liz.setInfo( type="Video", infoLabels={ "Title": title } )
-    liz.setProperty('fanart_image',FANART)
     xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz)
 
 
 def addDir(name,url,mode,iconimage,isfolder):
-    if iconimage == '':
-        iconimage = ICON
     u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)
     liz=xbmcgui.ListItem(name, iconImage=iconimage, thumbnailImage=iconimage)
     liz.setInfo( type="Video", infoLabels={ "Title": name } )
-    liz.setProperty('fanart_image',FANART)
     xbmcplugin.addDirectoryItem(int(sys.argv[1]),u,liz,isfolder)
     
 
@@ -55,14 +43,7 @@ def CATEGORIES():
     if (DELETETHUMBNAILS == 'true') or (GENERATETHUMBNAILS == 'true'):
         updateThumbs()
     
-    #Login if cookies aren't set    
-    try:
-        os.remove(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
-       #open(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
-    #except IOError:
-    except:
-       pass
-
+    #Login if cookies aren't set
     login()
     
     if (USERNAME in open(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')).read()) and USERNAME != '':
@@ -85,8 +66,7 @@ def CATEGORIES():
 
 
 
-def LIVE(url):   
-
+def LIVE(url):
     #Get live games
     games = getLiveGames(True)
     
@@ -98,15 +78,14 @@ def LIVE(url):
         
         #Add Game
         if game[4]:
-            if QUALITY == 5: #Go to quality selection screen            
+            if QUALITY == 5: #Go to quality selection screen
                 addDir(game[5],url + "/" + game[0],2,iconPath,True)
             else: #Go to the stream selection screen
                 addDir(game[5],url + "/" + game[0],3,iconPath,True)
         else:
-            teams = game[5][21:]
-            time = game[5][11:19]
-            time = time.lstrip("0")            
-            addDir(teams + " at " + time,url,1,iconPath,True)    
+            addDir(game[5],url,1,iconPath,True)
+
+
 
 def LIVEQUALITY(url):
     addDir('Best', url + '/bestquality',3,'',True)
@@ -127,9 +106,9 @@ def LIVELINKS(url):
     
     #Remove teamnames (not needed anymore)
     del links[0]
-
-    #Add links    
-    for link in links:       
+    
+    #Add links
+    for link in links:
         if link[1] == '':
             addDir(link[0],url,3,iconPath,True)
         else:
@@ -161,7 +140,8 @@ def ARCHIVEMONTH(url):
 
 def ARCHIVEGAMES(url):
     #Get the list of games
-    gameList = getGames(url)    
+    gameList = getGames(url)
+    
     #Add Games
     for game in gameList:
         #Icon path
@@ -169,16 +149,11 @@ def ARCHIVEGAMES(url):
         if USETHUMBNAILS == 'true':
             iconPath = os.path.join(ADDON_PATH_PROFILE, "images/" + THUMBFORMAT + "_" + BACKGROUND + "/"+ game[3] + "vs" + game[2] + ".png")
         
-        #print game[1]
-        #print url
-        if game[1] == "":
-            addLink(game[0],'','','')
-        else:
-            #Add Directory
-            if QUALITY == 5: #Go to quality selection screen
-                addDir(game[0],url+"/"+game[1],7,iconPath,True)
-            else: #Go to the stream selection screen
-                addDir(game[0],url+"/"+game[1],8,iconPath,True)
+        #Add Directory
+        if QUALITY == 5: #Go to quality selection screen
+            addDir(game[0],url+"/"+game[1],7,iconPath,True)
+        else: #Go to the stream selection screen
+            addDir(game[0],url+"/"+game[1],8,iconPath,True)
             
 
 def ARCHIVEQUALITY(url):
@@ -191,9 +166,7 @@ def ARCHIVEQUALITY(url):
     
 def ARCHIVELINKS(url):
     #Get live games
-    print url
     links = getGameLinks(url)
-    print links
 
     #Title
     title = links[0]
@@ -205,11 +178,10 @@ def ARCHIVELINKS(url):
     
     #Remove teamnames and title (not needed anymore)
     del links[0]
-    del links[0]    
+    del links[0]
+    
     #Add links
     for link in links:
-        print link[0]
-        print link[1]
         addLink(link[0],link[1],title + ' (' + link[0] + ')',iconPath)
 
 """
@@ -252,7 +224,6 @@ def LATESTGAMES(url):
     #Get live games
     games = getLiveGames(False)
     
-    date = ''
     for game in games:
         #Icon path
         iconPath = ''
@@ -260,13 +231,10 @@ def LATESTGAMES(url):
             iconPath = os.path.join(ADDON_PATH_PROFILE, "images/" + THUMBFORMAT + "_" + BACKGROUND + "/"+ game[7] + "vs" + game[6] + ".png")
         
         #Add Game
-        if date <> game[5][0:10]:
-            date = game[5][0:10]
-            addLink('[B][I]' + date + '[/I][/B]','','','')
         if game[4]:
-            addDir(game[5][21:],url + "/" + game[0],14,iconPath,True)
+            addDir(game[5],url + "/" + game[0],14,iconPath,True)
         else:
-            addDir(game[5][21:],url,11,iconPath,True)
+            addDir(game[5],url,11,iconPath,True)
 
 
 def LATESTGTYPE(url):

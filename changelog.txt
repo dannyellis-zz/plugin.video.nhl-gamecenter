@@ -1,8 +1,14 @@
 Changelog:
+
+0.7.4
+- Updated addon.xml so that you can finally install from ZIP! No more SSHing/Unzipping into Program Files.
+
+0.7.3
+- Doing update to LIVE games logic for date. Date/time format had changed on NHL's side.
+- Created proper readme and changelog.
+
 0.7.2
-- Added Show Score Setting
-- Changed the way the date is displayed in Latest Games
-- Removed date from Live games
+- Removed logic to try to login with cookies when restarting the addon
 
 0.7.1
 - Fixed away feeds

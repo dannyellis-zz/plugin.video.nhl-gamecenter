@@ -1,10 +1,10 @@
-import sys
 import urllib
 import re
 import os
 
 import xbmc
 import xbmcaddon
+
 
 
 ############################################################################
@@ -42,17 +42,14 @@ TEAMNAME = int(ADDON.getSetting(id="team_names"))
 HIDELIVEGAMES = ADDON.getSetting(id="hide_live_games")
 USETHUMBNAILS = ADDON.getSetting(id="use_thumbnails")
 USEADDONICON = ADDON.getSetting(id="use_addon_icon")
-SHOWSCORE = ADDON.getSetting(id="show_score")
 
-#if (USEADDONICON == 'true') and (USETHUMBNAILS == 'true'):
-ICON = ADDON_PATH+"/icon.png"
-#else:
-#ICON = ''
-FANART = ADDON_PATH+"/fanart.jpg"
+if (USEADDONICON == 'true') and (USETHUMBNAILS == 'true'):
+    ICON = os.path.join(ROOTDIR, "icon.png")
+else:
+    ICON = ''
     
 thumbnail = ["square","cover","169"]
 background = ["black","ice","transparent"]
-
 
 THUMBFORMAT = thumbnail[int(ADDON.getSetting(id="thumb_format"))]
 THUMBFORMATOSD = thumbnail[int(ADDON.getSetting(id="thumb_format_osd"))]

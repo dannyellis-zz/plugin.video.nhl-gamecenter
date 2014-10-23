@@ -24,7 +24,6 @@
     <setting id="generate_thumbnails" type="bool" label="30290" default="false"/>
     <setting id="delete_thumbnails" type="bool" label="30300" default="false"/>
     <setting id="alternativevs" type="bool" label="30330" default="false"/>
-	<setting id="show_score" type="bool" label="30340" default="false"/>
   </category>
 
 </settings>
