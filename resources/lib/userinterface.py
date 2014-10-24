@@ -181,9 +181,14 @@ def ARCHIVEGAMES(url):
                 addDir(game[0],url+"/"+game[1],8,iconPath,True)
             
 
-def ARCHIVEQUALITY(url):
+def ARCHIVEQUALITY(url):    
+    year = url.split("/")[2]
     addDir('Best', url + '/bestquality',8,'',True)
-    addDir('HD (4500 kbit/s)', url + '/4500K',8,'',True)
+    if int(year) >= 2014:
+        addDir('HD (5000 kbit/s)', url + '/5000K',8,'',True)
+    elif int(year) >= 2012:    
+        addDir('HD (4500 kbit/s)', url + '/4500K',8,'',True)
+
     addDir('HD (3000 kbit/s)', url + '/3000K',8,'',True)
     addDir('SD (1600 kbit/s)', url + '/1600K',8,'',True)
     addDir('SD (800 kbit/s)', url + '/800K',8,'',True)
