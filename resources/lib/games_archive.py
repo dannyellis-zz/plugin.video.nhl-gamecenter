@@ -150,14 +150,18 @@ def getGameLinks(url):
             linkList = [title, [homeTeam, awayTeam]]
             
             #Quality settings
+            print year
             if QUALITY == 4 or 'bestquality' in url:
                 quality = ''
             elif QUALITY == 3 or '4500K' in url:
                 quality = '_4500'
-                if int(year) >= 2012:
-                    quality = '_4500'
-                else:
-                    quality = '_3000'
+                if int(year) >= 2014:
+                    quality = '_5000' 
+                else:               
+                    if int(year) >= 2012:
+                        quality = '_4500'
+                    else:
+                        quality = '_3000'
             elif QUALITY == 2 or '3000K' in url:
                 quality = '_3000'
             elif QUALITY == 1 or '1600K' in url:
@@ -170,6 +174,7 @@ def getGameLinks(url):
             http_url = "http://nhl.cdn.neulion.net/" + playPath[4:] + "/v1/playlist" + quality + ".m3u8"
             http_url = http_url.replace('/pc/', '/ced/')
 
+            print "URL==="+http_url
             #Fix for 2012-2013 season
             if int(year) >= 2012:
                 http_url = http_url.replace('http://nhl.cdn.neulion.net/', 'http://nlds150.cdnak.neulion.com/')
