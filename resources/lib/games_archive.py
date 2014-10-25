@@ -80,16 +80,17 @@ def getGames(url):
         awayTeam = game.getElementsByTagName("awayTeam")[0].childNodes[0].nodeValue
         streamURL = game.getElementsByTagName("publishPoint")[0].childNodes[0].nodeValue
 
-        try:
-            awayGoals = game.getElementsByTagName("awayGoals")[0].childNodes[0].nodeValue
-            homeGoals = game.getElementsByTagName("homeGoals")[0].childNodes[0].nodeValue
-        except:
-            awayGoals = ''
-            homeGoals = ''
-        
-        #Change color of goals
-        #awayGoals = '[COLOR=FF00B7EB]'+ awayGoals + '[/COLOR]'
-        #homeGoals = '[COLOR=FF00B7EB]'+ homeGoals + '[/COLOR]'
+        awayGoals = ''
+        homeGoals = ''  
+        if SHOWSCORE == 'true':
+            try:
+                awayGoals = game.getElementsByTagName("awayGoals")[0].childNodes[0].nodeValue
+                homeGoals = game.getElementsByTagName("homeGoals")[0].childNodes[0].nodeValue
+                #Change color of goals
+                awayGoals = '[COLOR=FF00B7EB]'+ awayGoals + '[/COLOR]'
+                homeGoals = '[COLOR=FF00B7EB]'+ homeGoals + '[/COLOR]'
+            except:
+                pass
         
         #Versus string
         versus = 31400
@@ -104,10 +105,11 @@ def getGames(url):
         teams = getTeams()
         
         #Game title
+
         if awayTeam in teams and homeTeam in teams:
-            name = date + ': ' + teams[awayTeam][TEAMNAME] + " " + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME]
+            name = date + ': ' + teams[awayTeam][TEAMNAME] + " " + awayGoals + " " + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME] + " " + homeGoals
         else:
-            name = date + ': ' + awayTeam + " " + LOCAL_STRING(versus) + " " + homeTeam
+            name = date + ': ' + awayTeam + " " + awayGoals + " " + LOCAL_STRING(versus) + " " + homeTeam + " " + homeGoals
         
         if typeOfVideo != "lastnight": #Show all games
             gameList.append([name, gid, homeTeam, awayTeam, streamURL])

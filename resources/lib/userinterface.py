@@ -163,22 +163,27 @@ def ARCHIVEGAMES(url):
     #Get the list of games
     gameList = getGames(url)    
     #Add Games
+    date = ''
     for game in gameList:
         #Icon path
         iconPath = ''
         if USETHUMBNAILS == 'true':
             iconPath = os.path.join(ADDON_PATH_PROFILE, "images/" + THUMBFORMAT + "_" + BACKGROUND + "/"+ game[3] + "vs" + game[2] + ".png")
         
-        #print game[1]
+        #print game
+
+        if date <> game[0][0:10]:            
+            date = game[0][0:10]
+            addLink('[B][I]' + date + '[/I][/B]','','','')
         #print url
         if game[1] == "":
             addLink(game[0],'','','')
         else:
             #Add Directory
             if QUALITY == 5: #Go to quality selection screen
-                addDir(game[0],url+"/"+game[1],7,iconPath,True)
+                addDir(game[0][12:],url+"/"+game[1],7,iconPath,True)
             else: #Go to the stream selection screen
-                addDir(game[0],url+"/"+game[1],8,iconPath,True)
+                addDir(game[0][12:],url+"/"+game[1],8,iconPath,True)
             
 
 def ARCHIVEQUALITY(url):    
