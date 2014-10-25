@@ -174,7 +174,7 @@ def ARCHIVEGAMES(url):
 
         if date <> game[0][0:10]:            
             date = game[0][0:10]
-            addLink('[B][I]' + date + '[/I][/B]','','','')
+            addLink('[COLOR=FFFFFFFF][B][I]' + date + '[/I][/B][/COLOR]','','','')
         #print url
         if game[1] == "":
             addLink(game[0],'','','')
@@ -203,7 +203,6 @@ def ARCHIVELINKS(url):
     #Get live games
     print url
     links = getGameLinks(url)
-    print links
 
     #Title
     title = links[0]
@@ -212,15 +211,23 @@ def ARCHIVELINKS(url):
     iconPath = ''
     if USETHUMBNAILS == 'true':
         iconPath = os.path.join(ADDON_PATH_PROFILE, "images/" + THUMBFORMAT + "_" + BACKGROUND + "/"+ links[1][1] + "vs" + links[1][0] + ".png")
-    
+
+    #Get teamnames
+    teams = getTeams()
+    #teams[awayTeam][TEAMNAME]
+    homeTeam = teams[str(links[1][0])][TEAMNAME]
+    awayTeam = teams[str(links[1][1])][TEAMNAME]
     #Remove teamnames and title (not needed anymore)
     del links[0]
     del links[0]    
     #Add links
     for link in links:
-        print link[0]
-        print link[1]
-        addLink(link[0],link[1],title + ' (' + link[0] + ')',iconPath)
+        print link[0] #Home / Away
+        print link[1] #Video url
+        if link[0] == "Home":
+            addLink(link[0] + " (" + homeTeam + " feed)",link[1],title + ' (' + link[0] + ')',iconPath)
+        else:
+            addLink(link[0] + " (" + awayTeam + " feed)",link[1],title + ' (' + link[0] + ')',iconPath)
 
 """
 def LASTNIGHT(url):
@@ -272,7 +279,7 @@ def LATESTGAMES(url):
         #Add Game
         if date <> game[5][0:10]:
             date = game[5][0:10]
-            addLink('[B][I]' + date + '[/I][/B]','','','')
+            addLink('[COLOR=FFFFFFFF][B][I]' + date + '[/I][/B][/COLOR]','','','')
         if game[4]:
             addDir(game[5][21:],url + "/" + game[0],14,iconPath,True)
         else:
