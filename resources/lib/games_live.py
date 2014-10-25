@@ -210,8 +210,8 @@ def getLiveGameLinks(url):
             
                 #Quality settings
                 if QUALITY == 4 or 'bestquality' in url:
-                    if "live" in url:#fix needed to download the key below 
-                        m3u8URL = m3u8URL.replace('_ced.', '_5000_ced.')
+                    #if "live" in url:#fix needed to download the key below 
+                     m3u8URL = m3u8URL.replace('_ced.', '_5000_ced.')
                 elif QUALITY == 3 or '5000K' in url:
                     m3u8URL = m3u8URL.replace('_ced.', '_5000_ced.')
                 elif QUALITY == 2 or '3000K' in url:
