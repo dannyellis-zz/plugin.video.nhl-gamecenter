@@ -108,9 +108,11 @@ def LIVE(url):
             time = time.lstrip("0")            
             addDir(teams + " at " + time,url,1,iconPath,True)    
 
-def LIVEQUALITY(url):
+def LIVEQUALITY(url):    
     addDir('Best', url + '/bestquality',3,'',True)
-    addDir('HD (5000 kbit/s)', url + '/5000K',3,'',True)
+    if 'highlights' not in url:
+        addDir('HD (5000 kbit/s)', url + '/5000K',3,'',True)
+
     addDir('HD (3000 kbit/s)', url + '/3000K',3,'',True)
     addDir('SD (1600 kbit/s)', url + '/1600K',3,'',True)
     addDir('SD (800 kbit/s)', url + '/800K',3,'',True)
@@ -186,7 +188,7 @@ def ARCHIVEGAMES(url):
                 addDir(game[0][12:],url+"/"+game[1],8,iconPath,True)
             
 
-def ARCHIVEQUALITY(url):    
+def ARCHIVEQUALITY(url):        
     year = url.split("/")[2]
     addDir('Best', url + '/bestquality',8,'',True)
     if int(year) >= 2014:
@@ -299,7 +301,8 @@ def LATESTGTYPE(url):
 
 def LATESTGQUALITY(url):
     addDir('Best', url + '/bestquality',13,'',True)
-    addDir('HD (5000 kbit/s)', url + '/5000K',13,'',True)
+    if "highlights" not in url:
+        addDir('HD (5000 kbit/s)', url + '/5000K',13,'',True)
     addDir('HD (3000 kbit/s)', url + '/3000K',13,'',True)
     addDir('SD (1600 kbit/s)', url + '/1600K',13,'',True)
     addDir('SD (800 kbit/s)', url + '/800K',13,'',True)

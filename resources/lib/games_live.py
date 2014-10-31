@@ -214,8 +214,11 @@ def getLiveGameLinks(url):
                         m3u8URL = m3u8URL.replace('_ced.', '_5000_ced.')   
                     elif "highlights" in url:
                         m3u8URL = m3u8URL.replace('_ced.', '_3000_ced.')   
-                elif QUALITY == 3 or '5000K' in url:
-                    m3u8URL = m3u8URL.replace('_ced.', '_5000_ced.')
+                elif QUALITY == 3 or '5000K' in url:                    
+                    if "highlights" in url:
+                        m3u8URL = m3u8URL.replace('_ced.', '_3000_ced.')
+                    else:
+                        m3u8URL = m3u8URL.replace('_ced.', '_5000_ced.')
                 elif QUALITY == 2 or '3000K' in url:
                     m3u8URL = m3u8URL.replace('_ced.', '_3000_ced.')
                 elif QUALITY == 1 or '1600K' in url:
