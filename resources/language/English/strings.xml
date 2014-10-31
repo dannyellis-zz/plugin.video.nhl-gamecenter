@@ -8,6 +8,7 @@
 	<string id="30140">Video Quality (Classic Games)</string>
     <string id="30150">User-Agent String</string>
 	<string id="30160">Rogers Login</string>
+	<string id="30170">Show Score</string>
 	
     <!-- Visual settings -->
     <string id="30200">Visual Settings</string>
@@ -23,8 +24,7 @@
     <string id="30300">Delete Thumbnails on next start</string>
     <string id="30310">Show Home/Away Dialog (Archived/Condensed Games)</string>
     <string id="30320">Show Home/Away Dialog (Live Games)</string>
-    <string id="30330">Use "@" instead of "vs."</string>
-	<string id="30340">Show Score</string>
+    <string id="30330">Use "@" instead of "vs."</string>	
 
     <!-- Interface -->
     <string id="31100">Live Games</string>
