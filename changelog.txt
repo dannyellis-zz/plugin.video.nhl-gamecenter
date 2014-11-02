@@ -1,4 +1,7 @@
 Changelog:
+0.7.6
+- Bug fix
+
 0.7.5
 - Added Show Score Setting
 - Changed the way the date is displayed in Latest Games

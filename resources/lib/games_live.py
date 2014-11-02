@@ -80,6 +80,7 @@ def getLiveGames(live):
 
         homeTeamScore = ''
         awayTeamScore = ''
+        gameTime = ''
         if SHOWSCORE == 'true':            
             """    
             #Add games directories
@@ -96,7 +97,7 @@ def getLiveGames(live):
            
             try:                
                 ht = homeTeam
-                at = awayTeam
+                at = awayTeam                
                 json_scoreboard = getScoreBoard(date[0:10])               
                 #Display Date
                
