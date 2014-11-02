@@ -81,19 +81,7 @@ def getLiveGames(live):
         homeTeamScore = ''
         awayTeamScore = ''
         gameTime = ''
-        if SHOWSCORE == 'true':            
-            """    
-            #Add games directories
-            for game in jsonObj['games']:
-                gameID = str(jsonValue(game, 'id'))
-                homeTeam = jsonValue(game, 'hta')
-                homeTeamScore = jsonValue(game, 'hts')
-                awayTeam = jsonValue(game, 'ata')
-                awayTeamScore = jsonValue(game, 'ats')
-                canTV = jsonValue(game, 'canationalbroadcasts')
-                gameEnded = jsonValue(game, 'rl')
-                gameStatus = jsonValue(game, 'bs')
-            """
+        if SHOWSCORE == 'true':
            
             try:                
                 ht = homeTeam
