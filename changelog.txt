@@ -1,6 +1,7 @@
 Changelog:
 0.7.6
 - Bug fix
+- Best quality fix for latest games (5k for all but highlights)
 
 0.7.5
 - Added Show Score Setting
