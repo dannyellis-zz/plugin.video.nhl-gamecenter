@@ -1,4 +1,13 @@
 Changelog:
+0.7.6
+- Bug fix
+- Best quality fix for latest games (5k for all but highlights)
+
+0.7.5
+- Added Show Score Setting
+- Changed the way the date is displayed in Latest Games
+- Removed date from Live games
+- Bug fixes
 
 0.7.4
 - Updated addon.xml so that you can finally install from ZIP! No more SSHing/Unzipping into Program Files.
