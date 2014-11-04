@@ -1,7 +1,6 @@
 import threading
 import xbmcgui
 import xbmc
-from resources.lib.globals import *
 from resources.lib.games_live import *
 from time import sleep
 from datetime import datetime
@@ -26,8 +25,8 @@ class ScoreThread(object):
             gid = str(game['id'])
             ateam = game['ata']
             hteam = game['hta']
-            ascore = '[COLOR=FF00B7EB]'+str(game['ats'])+'[/COLOR]'
-            hscore = '[COLOR=FF00B7EB]'+str(game['hts'])+'[/COLOR]'
+            ascore = str(game['ats'])
+            hscore = str(game['hts'])
             gameclock = game['bs']                           
             NEW_GAME_STATS.append([gid,ateam,hteam,ascore,hscore,gameclock])
 
@@ -43,8 +42,13 @@ class ScoreThread(object):
                         #print "We have a match"
                         #print new_item[0] + " == "+ old_item[0]
                         #print "is " + new_item[5] + " == " + old_item[5]
-                        if new_item[3] != old_item[3] or new_item[4] != old_item[4] or 1 == 1:
-                            #or new_item[5] != old_item[5]:                            
+                        if new_item[3] != old_item[3] or new_item[4] != old_item[4]:
+                            #or new_item[5] != old_item[5]:                           
+                            if new_item[3] != old_item[3]:
+                                new_item[3] = '[COLOR=FF00B7EB]'+new_item[3]+'[/COLOR]'
+                            else:
+                                new_item[4] = '[COLOR=FF00B7EB]'+new_item[4]+'[/COLOR]'
+
                             ateam = new_item[1]
                             hteam = new_item[2]
                             ascore = new_item[3]
