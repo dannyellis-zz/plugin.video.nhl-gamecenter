@@ -65,6 +65,8 @@ def getLiveGames(live):
     gameList = []
    
 
+    json_scoreboard = getScoreBoard(datetime.now().strftime("%Y-%m-%d"))     
+
     for game in games:
         #Setup variables
         gid = game.getElementsByTagName('gid')[0].childNodes[0].nodeValue
@@ -85,8 +87,7 @@ def getLiveGames(live):
            
             try:                
                 ht = homeTeam
-                at = awayTeam                
-                json_scoreboard = getScoreBoard(date[0:10])               
+                at = awayTeam                                          
                 #Display Date
                
                 for sb_game in json_scoreboard['games']:                                
@@ -321,6 +322,7 @@ def getLiveGameLinks(url):
 
 def getScoreBoard(date):
     url = "http://live.nhle.com/GameData/GCScoreboard/"+date+".jsonp"
+    print url
     http = httplib2.Http()
     http.disable_ssl_certificate_validation = True
     

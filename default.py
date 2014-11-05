@@ -2,7 +2,7 @@
 # NHL GAMECENTER
 # XBMC ADD-ON
 ############################################################################
-
+import xbmcgui
 from resources.lib.userinterface import *
 from resources.lib.scoring_updates import *
 
@@ -23,22 +23,14 @@ print "Mode: "+str(mode)
 print "URL: "+str(url)
 
 
-if mode == None or url==None or len(url)<1:    
-    #login()   
-    #l.isRunning = False    
-    CATEGORIES()    
-    #Reset setting
-    #ADDON.setSetting(id='score_updates', value='false')
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
-    #Do Not Cache
-    #xbmcplugin.endOfDirectory(int(sys.argv[1]),1,0,0)
+if mode == None or url==None or len(url)<1:        
+    CATEGORIES()       
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))    
 elif mode == 1:
     LIVE(url)
-    #ADDON.setSetting(id='score_updates', value='true')           
-    s = ScoreThread()
-    t = threading.Thread(target = s.Scoring_Updates)
-    t.start()        
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+    #xbmcplugin.endOfDirectory(int(sys.argv[1]))    
+    #Do Not Cache Menu
+    xbmcplugin.endOfDirectory(int(sys.argv[1]),1,0,0)
 elif mode == 2:
     LIVEQUALITY(url)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
@@ -47,7 +39,6 @@ elif mode == 3:
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 4:
     ARCHIVE(url)
-    #ADDON.setSetting(id='score_updates', value='false')
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 5:
     ARCHIVEMONTH(url)
@@ -79,3 +70,13 @@ elif mode == 13:
 elif mode == 14:
     LATESTGTYPE(url)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
+elif mode == 100:
+    ADDON.setSetting(id='score_updates', value='true')
+    s = ScoreThread()
+    t = threading.Thread(target = s.Scoring_Updates)
+    t.start() 
+elif mode == 101:
+    dialog = xbmcgui.Dialog() 
+    title = "Score Notifications"
+    dialog.notification(title, 'Stopping...', ADDON_PATH+'/resources/images/nhl_logo.png', 5000, False)
+    ADDON.setSetting(id='score_updates', value='false')
