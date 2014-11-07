@@ -57,15 +57,8 @@ def CATEGORIES():
     if (DELETETHUMBNAILS == 'true') or (GENERATETHUMBNAILS == 'true'):
         updateThumbs()
     
-    #Login if cookies aren't set    
-    try:
-        os.remove(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
-       #open(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
-    #except IOError:
-    except:
-       pass
-
-    login()
+    #Check if cookies are up to date
+    checkLogin()
     
     if (USERNAME in open(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')).read()) and USERNAME != '':
         #Show categories
@@ -93,8 +86,9 @@ def CATEGORIES():
 
 
 def LIVE(url):   
-    global SHOW_SCORE_UPDATES    
-    SHOW_SCORE_UPDATES = 1
+    #Check if cookies are up to date
+    checkLogin()
+    
     #Get live games
     games = getLiveGames(True)
     
@@ -147,6 +141,8 @@ def LIVELINKS(url):
 
 
 def ARCHIVE(url):
+    #Check if cookies are up to date
+    checkLogin()
     #Get all available Seasons
     seasonList = getSeasons()
     
@@ -276,6 +272,8 @@ def LASTNIGHTTYPE(url):
 """    
 
 def LATESTGAMES(url):
+    #Check if cookies are up to date
+    checkLogin()
     #Get live games
     games = getLiveGames(False)
     

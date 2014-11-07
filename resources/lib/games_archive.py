@@ -151,7 +151,7 @@ def getGameLinks(url):
             awayTeam = game[3]
             linkList = [title, [homeTeam, awayTeam]]
            
-            #Quality settings     
+            #Quality settings            
             if QUALITY == 4 or 'bestquality' in url:
                 if int(year) >= 2014:
                     quality = '_5000'
