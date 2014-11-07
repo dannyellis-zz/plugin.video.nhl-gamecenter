@@ -72,10 +72,12 @@ def CATEGORIES():
         addDir(LOCAL_STRING(31100),'/live',1,'',True)
         #addDir(LOCAL_STRING(31150),'/lastnight',9,'',True)
         addDir(LOCAL_STRING(31160),'/latest',11,'',True)
-        #addDir(LOCAL_STRING(31140),'/highlights',4,'',True)
-        #addDir(LOCAL_STRING(31110),'/condensed',4,'',True)
+        addDir(LOCAL_STRING(31140),'/highlights',4,'',True)
+        addDir(LOCAL_STRING(31110),'/condensed',4,'',True)
         addDir(LOCAL_STRING(31120),'/archive',4,'',True)
 
+        #Space between Score Notifications
+        addDir('','Do Nothing',-1,'',False)
         addDir('Turn On Score Notifications','Notifications ON',100,'',False)
         addDir('Turn Off Score Notifications','Notifications OFF',101,'',False)
         #addDir(LOCAL_STRING(31130),'/classic',10,'',True)
