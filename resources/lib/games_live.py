@@ -87,7 +87,8 @@ def getLiveGames(live):
            
             try:                
                 ht = homeTeam
-                at = awayTeam                                          
+                at = awayTeam      
+                json_scoreboard = getScoreBoard(date[0:10])                                       
                 #Display Date
                
                 for sb_game in json_scoreboard['games']:                                
