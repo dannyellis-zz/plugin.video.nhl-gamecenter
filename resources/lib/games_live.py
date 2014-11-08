@@ -245,7 +245,12 @@ def getLiveGameLinks(url):
                     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
                     values = {}
                     login_data = urllib.urlencode(values)
-                    response = opener.open(url2, login_data)
+                    #This line was causing errors for buf/edm game 11/7/2014
+                    #Seemed to run fine without a proper response...
+                    try:
+                        response = opener.open(url2, login_data)
+                    except:
+                        pass
 
                     #Remove unneeded cookies
                     remove = []
