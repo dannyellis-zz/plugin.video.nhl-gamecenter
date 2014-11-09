@@ -221,17 +221,33 @@ def getGameLinks(url):
             linkList.append([LOCAL_STRING(31330), away_url])
  
             #French streams (experimental)
-            """
+            print home_url
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/08/205/2_205_min_mtl_1415_fr_whole_1_5000_ipad.mp4.m3u8
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/10/09/8/2_8_mtl_wsh_1415_fr_whole_1_3000_ipad.mp4.m3u8
+            #French streams (experimental)
+
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/08/205/2_205_min_mtl_1415_fr_whole_1_iphone.mp4.m3u8?nltid=nhlgc&nltdt=7&nltnt=1&uid=741758&hdnea=expires%3D1415556549%7Eaccess%3D%2Fnlds_vod%2Fnhlfr%2Fvod%2F2014%2F11%2F08%2F205%2F*%7Emd5%3D6cec36469ae2ff0a5d27fc47cf31a2da HTTP/1.1
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/08/205/2_205_min_mtl_1415_h_whole_1_5000_ipad.mp4.m3u8
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/08/205/2_205_min_mtl_1415_fr_whole_1_5000_ipad.mp4.m3u8]
+
+
+            
             if homeTeam == 'MON' or homeTeam == 'OTT':
                 home_url = home_url.replace('/nhl/', '/nhlfr/')
-                home_url = home_url.replace('nlds138', 'nlds60')
-                linkList.append([LOCAL_STRING(31320) + ' (' + LOCAL_STRING(31340) + ')', home_url])
+                #home_url = home_url.replace('nlds138', 'nlds60')
+                home_url = home_url.replace('_h_','_fr_')
+                home_url = home_url.replace('_5000_','_3000_')
+                home_url = home_url.replace('_4500_','_3000_')
+                linkList.append([LOCAL_STRING(31340), home_url])
             if awayTeam == 'MON' or awayTeam == 'OTT':
                 away_url = away_url.replace('/nhl/', '/nhlfr/')
-                away_url = away_url.replace('nlds138', 'nlds60')
-                linkList.append([LOCAL_STRING(31330) + ' (' + LOCAL_STRING(31340) + ')', away_url])
-            """
-           
+                #away_url = away_url.replace('nlds138', 'nlds60')
+                away_url = away_url.replace('_a_','_fr_')
+                away_url = away_url.replace('_2_','_1_')
+                away_url = away_url.replace('_5000_','_3000_')
+                away_url = away_url.replace('_4500_','_3000_')
+                linkList.append([LOCAL_STRING(31340), away_url])
+            
  
             break
    
