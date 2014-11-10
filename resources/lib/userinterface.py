@@ -108,7 +108,7 @@ def LIVE(url):
             print game[5]
             end_of_date = game[5].find(': ')  
             teams = game[5][end_of_date+2:]
-            time = game[5][11:19]
+            time = game[5][10:end_of_date]
             time = time.lstrip("0")            
             addDir(teams + " at " + time,url,1,iconPath,True)    
 
