@@ -12,8 +12,9 @@ class ScoreThread(object):
        nhl_logo = ADDON_PATH+'/resources/images/nhl_logo.png'
        dialog.notification(title, 'Starting...', nhl_logo, 5000, False)
        FIRST_TIME_THRU = 1       
+       
        OLD_GAME_STATS = []   
-       todays_date = datetime.now().strftime("%Y-%m-%d")     
+       todays_date = datetime.now().strftime("%Y-%m-%d")            
 
        while ADDON.getSetting(id="score_updates") == 'true':  
             game_url = ''
@@ -48,7 +49,12 @@ class ScoreThread(object):
                     
 
             if FIRST_TIME_THRU != 1: 
-                for new_item in NEW_GAME_STATS:                    
+                ALL_GAMES_OVER = 1
+                for new_item in NEW_GAME_STATS:    
+                	#Check if all games are over 
+            	    #print new_item[5]
+                    if new_item[5].find('FINAL') == -1:
+                		ALL_GAMES_OVER = 0            		
                     if ADDON.getSetting(id="score_updates") == 'false':                                       
                         break
                     for old_item in OLD_GAME_STATS:                    
@@ -87,9 +93,17 @@ class ScoreThread(object):
                                     print message                   
                                     dialog.notification(title, message, nhl_logo, 5000, False)
                                     sleep(5)
+            #Auto shutdown if all games have finished
+            if  FIRST_TIME_THRU == 0  and ALL_GAMES_OVER == 1:
+            	title = "All Games Have Ended"
+            	message = "Stopping..."
+            	dialog.notification(title, message, nhl_logo, 5000, False)                
+            	ADDON.setSetting(id='score_updates', value='false')
 
             OLD_GAME_STATS = []
             OLD_GAME_STATS = NEW_GAME_STATS              
             FIRST_TIME_THRU = 0          
-            sleep(int(refreshInterval))   
+            sleep(int(refreshInterval))  
             
+            
+
