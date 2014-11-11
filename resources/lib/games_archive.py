@@ -79,6 +79,12 @@ def getGames(url):
         homeTeam = game.getElementsByTagName("homeTeam")[0].childNodes[0].nodeValue
         awayTeam = game.getElementsByTagName("awayTeam")[0].childNodes[0].nodeValue
         streamURL = game.getElementsByTagName("publishPoint")[0].childNodes[0].nodeValue
+
+        season = game.getElementsByTagName("season")[0].childNodes[0].nodeValue
+        g_type = game.getElementsByTagName("type")[0].childNodes[0].nodeValue
+        g_id = game.getElementsByTagName("id")[0].childNodes[0].nodeValue
+
+        game_id =  season + g_type.zfill(2) + g_id.zfill(4) 
  
         awayGoals = ''
         homeGoals = ''  
@@ -112,9 +118,9 @@ def getGames(url):
             name = date + ': ' + awayTeam + " " + awayGoals + " " + LOCAL_STRING(versus) + " " + homeTeam + " " + homeGoals
        
         if typeOfVideo != "lastnight": #Show all games
-            gameList.append([name, gid, homeTeam, awayTeam, streamURL])
+            gameList.append([name, gid, homeTeam, awayTeam, streamURL, game_id])
         elif latestGame == date: #show only latest games
-            gameList.append([name, gid, homeTeam, awayTeam, streamURL])
+            gameList.append([name, gid, homeTeam, awayTeam, streamURL, game_id])
    
     #Save the list of games
     pickle.dump(gameList, open(os.path.join(ADDON_PATH_PROFILE, 'games'),"wb"))
@@ -139,17 +145,18 @@ def getGameLinks(url):
     #Load the list of games
     gameList = pickle.load(open(os.path.join(ADDON_PATH_PROFILE, 'games'),"rb"))
    
-    #
+    
     linkList = []
    
     #Get the url of the game
     for game in gameList:
-        if game[1] in url:
+        if game[1] in url:            
             #Add teamnames and game title to the list
             title = game[0]
             homeTeam = game[2]
             awayTeam = game[3]
             linkList = [title, [homeTeam, awayTeam]]
+            game_id = game[5]
            
             #Quality settings            
             if QUALITY == 4 or 'bestquality' in url:
@@ -177,7 +184,7 @@ def getGameLinks(url):
             playPath = game[4][37:][:-49]
             http_url = "http://nhl.cdn.neulion.net/" + playPath[4:] + "/v1/playlist" + quality + ".m3u8"            
             http_url = http_url.replace('/pc/', '/ced/')
-           
+            
            
             #Fix for 2012-2013 season
             if int(year) >= 2012:
@@ -200,7 +207,7 @@ def getGameLinks(url):
                 #Fix for some streams
                 http_url = http_url.replace('s/as3/', '')
                
-                print "BEFORE SWITCH === " + http_url
+               # print "BEFORE SWITCH === " + http_url
  
                 if typeOfVideo == 'archive':                    
                     http_url = http_url.replace('condensed', 'whole')
@@ -212,16 +219,47 @@ def getGameLinks(url):
            
             home_url = http_url
             away_url = http_url.replace('_h_', '_a_')
-           
-           
+
+            date_for_url = datetime.fromtimestamp(time.mktime(time.strptime(game[0][0:10],xbmc.getRegion('dateshort')))).strftime("%Y-%m-%d")            
+            game_info = getGameInfo(date_for_url,game_id)
+
             #Home url
             linkList.append([LOCAL_STRING(31320), home_url])
-           
-            #Away url
-            linkList.append([LOCAL_STRING(31330), away_url])
+            
+            #Check if Away Video is available           
+            if game_info != '':                
+                print game_info['gameHighlightVideo']['hasArchiveAwayVideo']
+                if game_info['gameHighlightVideo']['hasArchiveAwayVideo']:           
+                    #Away url
+                    linkList.append([LOCAL_STRING(31330), away_url])
+
+
+            #Check if French Video is available
+            if game_info != '':
+                #French flag stored in live (NHL Bug???)
+                print game_info['gameLiveVideo']['hasLiveFrenchVideo']
+                if game_info['gameLiveVideo']['hasLiveFrenchVideo']:
+                    #French url            
+                    ########################################
+                    # This code / logic is used from TB123's code
+                    ########################################
+                    # Somehow Montreal French feed is switched between home and away for 2014 season (NHL bug???)
+                    if (int(year) == 2014 and home_url != None and awayTeam == 'MON'):
+                        away_home = "_%s_%s_" % (awayTeam.lower(), homeTeam.lower())
+                        home_away = "_%s_%s_" % (homeTeam.lower(), awayTeam.lower())
+
+                        away_home = away_home.replace('mon','mtl')
+                        home_away =  home_away.replace('mon','mtl')
+                        home_url = home_url.replace(away_home, home_away)
+                    ########################################
+                    french_url = home_url.replace('/nhl/', '/nhlfr/')
+                    french_url = french_url.replace('_h_', '_fr_')
+                    french_url = french_url.replace('_5000_','_3000_')
+                    french_url = french_url.replace('_4500_','_3000_')
+                    linkList.append(['French', french_url])
  
             #French streams (experimental)
-            print home_url
+            #print home_url
             #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/08/205/2_205_min_mtl_1415_fr_whole_1_5000_ipad.mp4.m3u8
             #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/10/09/8/2_8_mtl_wsh_1415_fr_whole_1_3000_ipad.mp4.m3u8
             #French streams (experimental)
@@ -230,8 +268,14 @@ def getGameLinks(url):
             #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/08/205/2_205_min_mtl_1415_h_whole_1_5000_ipad.mp4.m3u8
             #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/08/205/2_205_min_mtl_1415_fr_whole_1_5000_ipad.mp4.m3u8]
 
-
-            
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/05/185/2_185_det_nyr_1415_fr_whole_1_3000_ipad.mp4.m3u8
+            #GOOD ONE
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/05/184/2_184_buf_mtl_1415_fr_whole_1_3000_ipad.mp4.m3u8
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2013/12/29/586/2_586_fla_mtl_1314_fr_whole_1_ipad.mp4.m3u8
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2013/12/29/586/2_586_mtl_fla_1314_fr_whole_1_ipad.mp4.m3u8
+            #MINE
+            #http://nlds150.cdnak.neulion.com/nlds_vod/nhlfr/vod/2014/11/05/184/2_184_mtl_buf_1415_fr_whole_1_1600_ipad.mp4.m3u8
+            """            
             if homeTeam == 'MON' or homeTeam == 'OTT':
                 home_url = home_url.replace('/nhl/', '/nhlfr/')
                 #home_url = home_url.replace('nlds138', 'nlds60')
@@ -247,7 +291,7 @@ def getGameLinks(url):
                 away_url = away_url.replace('_5000_','_3000_')
                 away_url = away_url.replace('_4500_','_3000_')
                 linkList.append([LOCAL_STRING(31340), away_url])
-            
+            """          
  
             break
    
