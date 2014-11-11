@@ -1,4 +1,7 @@
 Changelog:
+0.8.1
+- Show Score Notifications auto-off
+- Display bug fix for miliary time
 0.8.0
 - Show Score Notifications
 - Stale cookie fix

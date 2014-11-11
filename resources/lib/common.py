@@ -1,7 +1,7 @@
 import cookielib
 import urllib2
 import time
-import calendar
+from datetime import datetime
 
 import xbmcgui
 from resources.lib.globals import *
@@ -28,22 +28,21 @@ def login():
 def checkLogin():    
     try:
         #Get the last time the file was modified
-        file_modified = time.gmtime(os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')))
-        print "Cookies file was last modified " + str(time.strftime('%m/%d/%Y %H:%M', file_modified)) 
+        file_modified = os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
+        print "Cookies file was last modified " + str(datetime.fromtimestamp(file_modified).strftime('%m/%d/%Y %H:%M'))   
         now = time.time()
+        print "The current time is " + str(datetime.fromtimestamp(now).strftime('%m/%d/%Y %H:%M'))  
         exp_cut_off = now - 60*60*12 # Number of seconds in twelve hours
-
-        if calendar.timegm(file_modified) < exp_cut_off:
+        #print 
+        #if calendar.timegm(file_modified) < exp_cut_off:
+        if file_modified < exp_cut_off:
             print "Cookies are more than 12hrs old"
             login()
         else:
             print "Still Good"
     except:
-        #Cookie file / folder not found. Call login to create them
-        login()
-
-    
-
+        #Cookie file / folder not found. Call login to create it
+        login()    
 
 
 def downloadFile(url,values):
