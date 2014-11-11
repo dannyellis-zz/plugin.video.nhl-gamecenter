@@ -137,7 +137,8 @@ def LIVELINKS(url):
         if link[1] == '':
             addDir(link[0],url,3,iconPath,True)
         else:
-            addLink(link[0],link[1],link[0],iconPath)
+            #addLink(link[0],link[1],link[0],iconPath)
+            addDir(link[0],link[1],15,iconPath,True)
 
 
 def ARCHIVE(url):
@@ -232,8 +233,10 @@ def ARCHIVELINKS(url):
         print link[1] #Video url
         if link[0] == "Home":
             addLink(link[0] + " (" + homeTeam + " feed)",link[1],title + ' (' + link[0] + ')',iconPath)
-        else:
+        elif link[0] == "Away":
             addLink(link[0] + " (" + awayTeam + " feed)",link[1],title + ' (' + link[0] + ')',iconPath)
+        else:
+            addLink(link[0] + " feed",link[1],title + ' (' + link[0] + ')',iconPath)
 
 """
 def LASTNIGHT(url):
@@ -285,7 +288,7 @@ def LATESTGAMES(url):
             iconPath = os.path.join(ADDON_PATH_PROFILE, "images/" + THUMBFORMAT + "_" + BACKGROUND + "/"+ game[7] + "vs" + game[6] + ".png")
         
         #Add Game
-        if date <> game[5][0:10]:
+        if date != game[5][0:10]:
             date = game[5][0:10]
             addLink('[COLOR=FFFFFFFF][B][I]' + date + '[/I][/B][/COLOR]','','','')
         if game[4]:
@@ -331,4 +334,5 @@ def LATESTGLINKS(url):
         if link[1] == '':
             addDir(link[0],url,13,iconPath,True)
         else:
-            addLink(link[0],link[1],link[0],iconPath)
+            #addLink(link[0],link[1],link[0],iconPath)
+            addDir(link[0],link[1],15,iconPath,True)
