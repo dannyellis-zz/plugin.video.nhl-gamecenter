@@ -33,6 +33,9 @@ USERAGENT = urllib.quote(ADDON.getSetting('useragent'))
 ROGERSLOGIN = ADDON.getSetting(id="rogerslogin")
 SHOWSCORE = ADDON.getSetting(id="show_score")
 SHOW_SCORE_UPDATES = 0
+FRENCH_FEED = ADDON.getSetting(id="french_feed")
+GOALIE_CAM = ADDON.getSetting(id="goalie_cam")
+
 
 #Visual settings
 SHOWDIALOGQUALITY = 'true'
