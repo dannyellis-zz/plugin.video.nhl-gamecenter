@@ -2,6 +2,8 @@ Changelog:
 0.8.1
 - Show Score Notifications auto-off
 - Display bug fix for miliary time
+- French and Goalie feeds Optional
+
 0.8.0
 - Show Score Notifications
 - Stale cookie fix
