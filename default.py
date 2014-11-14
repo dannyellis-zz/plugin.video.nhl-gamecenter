@@ -70,10 +70,6 @@ elif mode == 13:
 elif mode == 14:
     LATESTGTYPE(url)
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
-elif mode == 15:
-    #Play Live Stream
-    temp(url)
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode == 100:
     ADDON.setSetting(id='score_updates', value='true')
     s = ScoreThread()
