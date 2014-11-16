@@ -193,6 +193,13 @@ def getLiveGameLinks(url):
             if GOALIE_CAM == 'true':
                 feed_list.append(64)
                 feed_list.append(128)
+
+            #Exclusive Cams
+            feed_list.append(256)
+            feed_list.append(512)
+            feed_list.append(1024)
+
+
             
             for feed in feed_list:
                 #Get the m3u8 URL                
@@ -310,6 +317,15 @@ def getLiveGameLinks(url):
                 elif feed == 128:
                     #Goalie Cam Right
                     linkList.append(['[B]Goalie Cam 2[/B]', m3u8URL + "|" + urllib.urlencode(header)])
+                elif feed == 256:                    
+                    #Exclusive Cam 1
+                    linkList.append(['[B]Exclusive Cam 1[/B]', m3u8URL + "|" + urllib.urlencode(header)])
+                elif feed == 512:                    
+                    #Exclusive Cam 2
+                    linkList.append(['[B]Exclusive Cam 2[/B]', m3u8URL + "|" + urllib.urlencode(header)])
+                elif feed == 1024:                    
+                    #Exclusive Cam 3
+                    linkList.append(['[B]Exclusive Cam 3[/B]', m3u8URL + "|" + urllib.urlencode(header)])
                 
                 
             break
