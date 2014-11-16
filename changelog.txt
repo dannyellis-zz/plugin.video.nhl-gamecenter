@@ -3,6 +3,7 @@ Changelog:
 - Show Score Notifications auto-off
 - Display bug fix for miliary time
 - French and Goalie feeds Optional
+- Email as username bug fix
 
 0.8.0
 - Show Score Notifications
