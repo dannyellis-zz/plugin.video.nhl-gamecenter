@@ -217,6 +217,8 @@ def getLiveGameLinks(url):
 
                 xml = parseString(downloadedXML)
                 m3u8URL = xml.getElementsByTagName('path')[0].childNodes[0].nodeValue
+				
+
             
                 #Quality settings
                 if QUALITY == 4 or 'bestquality' in url:
@@ -291,6 +293,9 @@ def getLiveGameLinks(url):
             
                     header = {'Cookie' : cookies, 'User-Agent' : 'Safari/537.36 Mozilla/5.0 AppleWebKit/537.36 Chrome/31.0.1650.57', 'Accept-Encoding' : 'gzip,deflate', 'Connection' : 'Keep-Alive'}
                     #header = {'Cookie' : cookies, 'User-Agent' : 'NHL1415/4.1030 CFNetwork/711.1.12 Darwin/14.0.0', 'Accept-Encoding' : 'gzip,deflate', 'Connection' : 'Keep-Alive'}
+					
+                #Set CDN Server
+                m3u8URL = cdnServer(m3u8URL)
 
                 #Get teamnames
                 teams = getTeams()
@@ -311,7 +316,8 @@ def getLiveGameLinks(url):
                     #Goalie Cam Right
                     linkList.append(['[B]Goalie Cam 2[/B]', m3u8URL + "|" + urllib.urlencode(header)])
                 
-                
+
+				
             break
     
     return linkList

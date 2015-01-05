@@ -210,6 +210,9 @@ def getGameLinks(url):
                     http_url = http_url.replace('condensed', 'continuous')
            
            
+            #Set CDN Server
+            http_url = cdnServer(http_url)
+		   
             home_url = http_url
             away_url = http_url.replace('_h_', '_a_')
            

@@ -7,6 +7,15 @@ import xbmcgui
 from resources.lib.globals import *
 from resources.lib.thumbnailgenerator import *
 
+
+def cdnServer(feed_url):
+    modified_feed_url = feed_url
+    if CDN_SERVER != DEFAULT_CDN_SERVER:
+         modified_feed_url = feed_url.replace(DEFAULT_CDN_SERVER,CDN_SERVER)
+         print "CDN Server Changed to: " + CDN_SERVER
+	 
+    return modified_feed_url
+
 def login(): 
      #Create Profile Folder if necessary
     if not os.path.exists(ADDON_PATH_PROFILE):
