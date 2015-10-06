@@ -25,10 +25,10 @@ def login():
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
     opener.addheaders = [('Content-type', 'application/x-www-form-urlencoded')]
     if ROGERSLOGIN == 'true':
-        login_data = urllib.urlencode({'username': USERNAME, 'password': PASSWORD, 'rogers': 'true'})
+        login_data = urllib.urlencode({'username': USERNAME, 'password': PASSWORD, 'rogers': 'true', 'cookielink': 'false'})
     else:
         login_data = urllib.urlencode({'username': USERNAME, 'password': PASSWORD})
-    r=opener.open('https://gamecenter.nhl.com/nhlgc/secure/login', login_data)
+    r=opener.open('https://gamecenter.nhl.com/nhlgc/secure/login', login_data)    
 
     #Save the cookie
     cj.save(ignore_discard=True);
