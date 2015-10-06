@@ -37,7 +37,7 @@ def login():
 def checkLogin():    
     try:
         #Get the last time the file was modified
-        file_modified = time.gmtime(os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')))
+        file_modified = time.localtime(os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')))
         print "Cookies file was last modified " + str(time.strftime('%m/%d/%Y %H:%M', file_modified)) 
         now = time.time()
         exp_cut_off = now - 60*60*12 # Number of seconds in twelve hours
