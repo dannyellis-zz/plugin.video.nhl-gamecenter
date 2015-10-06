@@ -1,4 +1,7 @@
 Changelog:
+0.8.2
+- Added setting to select a different CDN Server
+
 0.8.1
 - Show Score Notifications auto-off
 - Display bug fix for miliary time
