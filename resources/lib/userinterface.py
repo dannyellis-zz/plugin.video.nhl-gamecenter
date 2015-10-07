@@ -61,7 +61,7 @@ def CATEGORIES():
     checkLogin()
     
     #if (USERNAME in open(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')).read()) and USERNAME != '':
-    if (USERNAME.lower() in (open(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')).read()).lower()) and USERNAME != '':
+    if (USERNAME.lower() in (open(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')).read()).lower().decode('utf8') ) and USERNAME != '':
         #Show categories
         addDir(LOCAL_STRING(31100),'/live',1,'',True)
         #addDir(LOCAL_STRING(31150),'/lastnight',9,'',True)
