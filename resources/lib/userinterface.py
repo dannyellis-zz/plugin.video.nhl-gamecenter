@@ -76,8 +76,8 @@ def CATEGORIES():
         addDir('Turn Off Score Notifications','Notifications OFF',101,'',False)
         #addDir(LOCAL_STRING(31130),'/classic',10,'',True)
     else:
-        os.remove(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
-        print "cookies removed"
+        #os.remove(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
+        #print "cookies removed"
         
         dialog = xbmcgui.Dialog()
         dialog.ok('Login failed', 'Check your login credentials')
