@@ -1,4 +1,7 @@
 Changelog:
+0.8.4
+- Changed how cookies and logins are checked
+
 0.8.3
 - Fix for bad url's in archive streams
 - Added Label for cdn setting
