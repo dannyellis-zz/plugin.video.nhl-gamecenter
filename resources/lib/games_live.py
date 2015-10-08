@@ -37,7 +37,7 @@ def getLiveGames(live):
         #Try to login again if File not accessible
         if "<code>noaccess</code>" in downloadedXML:
             print "No access to XML file"
-            login()
+            checkLogin()
             continue
         else:
             print "Download successful"
