@@ -163,7 +163,7 @@ def getLiveGames(live):
             if awayTeam in teams and homeTeam in teams:
                 title = teams[awayTeam][TEAMNAME] + " " + awayTeamScore + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME] + " " + homeTeamScore 
             else:
-                title = awayTeam + " " + awayTeamScore + " " + LOCAL_STRING(versus) + " " + homeTeam + " " + homeTeamScore
+                title = awayTeam + " " + awayTeamScore + LOCAL_STRING(versus) + " " + homeTeam + " " + homeTeamScore
         
         #Add to the list of live games
         gameList.append([gid, season, Type, Id, gameStarted, title, homeTeam, awayTeam, localDate, sortByDate])
