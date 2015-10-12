@@ -98,9 +98,8 @@ def LIVE(url):
             else: #Go to the stream selection screen
                 addDir(game[5],url + "/" + game[0],3,iconPath,True)
         else:
-            teams = game[5][21:]
-            time = game[5][11:19]
-            time = time.lstrip("0")            
+            teams = game[5]
+            time = game[10]
             addDir(teams + " at " + time,url,1,iconPath,True)    
 
 def LIVEQUALITY(url):    
