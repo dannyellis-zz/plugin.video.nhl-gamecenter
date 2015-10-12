@@ -87,8 +87,8 @@ def getLiveGames(live):
            
             try:                
                 ht = homeTeam
-                at = awayTeam      
-                json_scoreboard = getScoreBoard(date[0:10])                                       
+                at = awayTeam
+                json_scoreboard = getScoreBoard(date[0:10])
                 #Display Date
                
                 for sb_game in json_scoreboard['games']:                                
@@ -117,8 +117,8 @@ def getLiveGames(live):
                     if ht == str(sb_game['hta']) and at == str(sb_game['ata']):
                         #print "WE FOUND A MATCH"
                         homeTeamScore = '[COLOR=FF00B7EB]' + str(sb_game['hts']) +'[/COLOR]'
-                        awayTeamScore = '[COLOR=FF00B7EB]' + str(sb_game['ats']) +'[/COLOR]'
-                        gameTime = str(sb_game['bs'])                    
+                        awayTeamScore = '[COLOR=FF00B7EB]' + str(sb_game['ats']) +'[/COLOR] '
+                        gameTime = str(sb_game['bs'])
             except:
                 pass
 
@@ -148,24 +148,25 @@ def getLiveGames(live):
             if gameTime == '':
                 gameTime = "Live"
             #Displayed titlestring
-            if awayTeam in teams and homeTeam in teams:                
-                title = gameTime + " - " + teams[awayTeam][TEAMNAME] + " " + awayTeamScore + " " + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME] + " " + homeTeamScore
+            if awayTeam in teams and homeTeam in teams:
+                title = gameTime + " - " + teams[awayTeam][TEAMNAME] + " " + awayTeamScore + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME] + " " + homeTeamScore
             else:
-                title = gameTime + " - " + awayTeam + " " + awayTeamScore + " " + LOCAL_STRING(versus) + " " + homeTeam + " " + homeTeamScore
+                title = gameTime + " - " + awayTeam + " " + awayTeamScore + LOCAL_STRING(versus) + " " + homeTeam + " " + homeTeamScore
         else:
             #Convert the time to the local timezone
             date = datetime.fromtimestamp(time.mktime(startTime))
-            date = date.replace(tzinfo=tz.gettz('America/New_York'))            
-            datelocal = date.astimezone(tz.tzlocal()).strftime(xbmc.getRegion('dateshort')+' '+xbmc.getRegion('time').replace('%H%H','%H').replace(':%S',''))           
+            date = date.replace(tzinfo=tz.gettz('America/New_York'))
+            localDate = date.astimezone(tz.tzlocal()).strftime(xbmc.getRegion('dateshort'))
+	    sortByDate = date.astimezone(tz.tzlocal()).strftime('%Y-%m-%d')
 
             #Displayed titlestring
             if awayTeam in teams and homeTeam in teams:
-                title = datelocal + ': ' + teams[awayTeam][TEAMNAME] + " " + awayTeamScore + " " + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME] + " " + homeTeamScore                
+                title = teams[awayTeam][TEAMNAME] + " " + awayTeamScore + LOCAL_STRING(versus) + " " + teams[homeTeam][TEAMNAME] + " " + homeTeamScore 
             else:
-                title = datelocal + ': ' + awayTeam + " " + awayTeamScore + " " + LOCAL_STRING(versus) + " " + homeTeam + " " + homeTeamScore
+                title = awayTeam + " " + awayTeamScore + " " + LOCAL_STRING(versus) + " " + homeTeam + " " + homeTeamScore
         
         #Add to the list of live games
-        gameList.append([gid, season, Type, Id, gameStarted, title, homeTeam, awayTeam])
+        gameList.append([gid, season, Type, Id, gameStarted, title, homeTeam, awayTeam, localDate, sortByDate])
     
     
     #Save the gameList
