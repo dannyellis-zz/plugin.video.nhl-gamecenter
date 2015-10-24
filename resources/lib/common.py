@@ -25,31 +25,51 @@ def login():
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
     opener.addheaders = [('Content-type', 'application/x-www-form-urlencoded')]
     if ROGERSLOGIN == 'true':
-        login_data = urllib.urlencode({'username': USERNAME, 'password': PASSWORD, 'rogers': 'true'})
+        login_data = urllib.urlencode({'username': USERNAME, 'password': PASSWORD, 'rogers': 'true', 'cookielink': 'false'})
     else:
         login_data = urllib.urlencode({'username': USERNAME, 'password': PASSWORD})
-    r=opener.open('https://gamecenter.nhl.com/nhlgc/secure/login', login_data)
+    r=opener.open('https://gamecenter.nhl.com/nhlgc/secure/login', login_data)    
 
-    #Save the cookie
-    cj.save(ignore_discard=True);
+    print r.getcode()
+    print r.info()
+    print "URL"
+    print r.geturl()
+    print r.info().getheaders('Set-Cookie')
+    # A valid login has at least 4 cookies that are set. 
+    if len(r.info().getheaders('Set-Cookie')) < 4:
+        #os.remove(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
+        #print "cookies removed"        
+        dialog = xbmcgui.Dialog()
+        dialog.ok('Login failed', 'Check your login credentials')
+        sys.exit()
+        #xbmcplugin.endOfDirectory(handle = int(sys.argv[1]),succeeded=False)
+        #return None
+    else:
+        #Save the cookie
+        cj.save(ignore_discard=True);
 
 
-def checkLogin():    
+def checkLogin():  
+
     try:
         #Get the last time the file was modified
-        file_modified = time.gmtime(os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')))
-        print "Cookies file was last modified " + str(time.strftime('%m/%d/%Y %H:%M', file_modified)) 
+        file_modified = os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
+        print "Cookies file was last modified " + str(time.strftime('%m/%d/%Y %I:%M %p', time.localtime(file_modified)))
+        print file_modified
         now = time.time()
-        exp_cut_off = now - 60*60*12 # Number of seconds in twelve hours
-
-        if calendar.timegm(file_modified) < exp_cut_off:
-            print "Cookies are more than 12hrs old"
+        time_difference = now - file_modified 
+        print time_difference 
+        exp_cut_off = 60*15 # 15 Mins keeps cookies fresh
+        print exp_cut_off
+        if time_difference > exp_cut_off:
+            print "Cookies have gone stale... Refreshing Cookies"
             login()
         else:
-            print "Still Good"
+            print "Cookies still fresh"
     except:
         #Cookie file / folder not found. Call login to create them
         login()
+
 
     
 
@@ -83,7 +103,7 @@ def downloadFile(url,values):
         #Try to login again if File not accessible
         if "<code>noaccess</code>" in downloadedFile:
             print "No access to XML file"
-            login()
+            checkLogin()
             continue
         else:
             print "Download successful"
