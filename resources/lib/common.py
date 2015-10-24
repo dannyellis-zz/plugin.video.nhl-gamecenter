@@ -55,12 +55,12 @@ def checkLogin():
         #Get the last time the file was modified
         file_modified = os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
         print "Cookies file was last modified " + str(time.strftime('%m/%d/%Y %I:%M %p', time.localtime(file_modified)))
-        print file_modified
+        #print file_modified
         now = time.time()
         time_difference = now - file_modified 
-        print time_difference 
+        #print time_difference 
         exp_cut_off = 60*15 # 15 Mins keeps cookies fresh
-        print exp_cut_off
+        #print exp_cut_off
         if time_difference > exp_cut_off:
             print "Cookies have gone stale... Refreshing Cookies"
             login()
