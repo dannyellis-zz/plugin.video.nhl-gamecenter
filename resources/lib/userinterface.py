@@ -98,9 +98,8 @@ def LIVE(url):
             else: #Go to the stream selection screen
                 addDir(game[5],url + "/" + game[0],3,iconPath,True)
         else:
-            teams = game[5][21:]
-            time = game[5][11:19]
-            time = time.lstrip("0")            
+            teams = game[5]
+            time = game[10]
             addDir(teams + " at " + time,url,1,iconPath,True)    
 
 def LIVEQUALITY(url):    
@@ -277,14 +276,16 @@ def LATESTGAMES(url):
         if USETHUMBNAILS == 'true':
             iconPath = os.path.join(ADDON_PATH_PROFILE, "images/" + THUMBFORMAT + "_" + BACKGROUND + "/"+ game[7] + "vs" + game[6] + ".png")
         
+        #If date changed, echo the new date
+	if date <> game[9]:
+            date = game[9]
+            addLink('[COLOR=FFFFFFFF][B][I]' + game[8] + '[/I][/B][/COLOR]','','','')
+        
         #Add Game
-        if date <> game[5][0:10]:
-            date = game[5][0:10]
-            addLink('[COLOR=FFFFFFFF][B][I]' + date + '[/I][/B][/COLOR]','','','')
         if game[4]:
-            addDir(game[5][21:],url + "/" + game[0],14,iconPath,True)
+            addDir(game[5],url + "/" + game[0],14,iconPath,True)
         else:
-            addDir(game[5][21:],url,11,iconPath,True)
+            addDir(game[5],url,11,iconPath,True)
 
 
 def LATESTGTYPE(url):
