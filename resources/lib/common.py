@@ -50,46 +50,26 @@ def login():
 
 
 def checkLogin():    
-    expired_cookies = True
-    try:
-        cj = cookielib.LWPCookieJar()
-        cj.load(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'),ignore_discard=True)
-        at_least_one_expired = False
-        for cookie in cj:                
-            #if cookie.name == 'gcsub':
-            print cookie.name
-            print cookie.expires
-            print cookie.is_expired()
-            if cookie.is_expired():
-                at_least_one_expired = True
-                break
-
-        if not at_least_one_expired:
-            expired_cookies = False
-            
-    except:
-        pass
-
-   
-    if expired_cookies:
-        login()
-    '''
+    
     try:
         #Get the last time the file was modified
-        file_modified = time.localtime(os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp')))
-        print "Cookies file was last modified " + str(time.strftime('%m/%d/%Y %H:%M', file_modified)) 
+        file_modified = os.path.getmtime(os.path.join(ADDON_PATH_PROFILE, 'cookies.lwp'))
+        print "Cookies file was last modified " + str(time.strftime('%m/%d/%Y %I:%M %p', time.localtime(file_modified)))
+        #print file_modified
         now = time.time()
-        exp_cut_off = now - 60*60*12 # Number of seconds in twelve hours
-
-        if calendar.timegm(file_modified) < exp_cut_off:
-            print "Cookies are more than 12hrs old"
+        time_difference = now - file_modified 
+        #print time_difference 
+        exp_cut_off = 60*15 # 15 Mins keeps cookies fresh
+        #print exp_cut_off
+        if time_difference > exp_cut_off:
+            print "Cookies have gone stale... Refreshing Cookies"
             login()
         else:
-            print "Still Good"
+            print "Cookies still fresh"
     except:
         #Cookie file / folder not found. Call login to create them
         login()
-    '''
+
 
     
 

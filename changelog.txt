@@ -1,4 +1,7 @@
 Changelog:
+0.8.5
+- Fixed Cookie Checking
+
 0.8.4
 - Changed how cookies and logins are checked
 
